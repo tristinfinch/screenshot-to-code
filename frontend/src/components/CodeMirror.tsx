@@ -43,6 +43,10 @@ function CodeMirror({ code, editorTheme, onCodeChange }: Props) {
         }
       }),
     ],
+    // onCodeChange is intentionally omitted: recreating EditorState on every
+    // parent render would reset the editor; the listener captures the callback
+    // once and parents keep a stable reference.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [editorTheme]);
   useEffect(() => {
     view.current = new EditorView({
@@ -56,6 +60,9 @@ function CodeMirror({ code, editorTheme, onCodeChange }: Props) {
         view.current = null;
       }
     };
+    // editorState intentionally omitted: the view is created once on mount
+    // and disposed on unmount; code changes are synced by the effect below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

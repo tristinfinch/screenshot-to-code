@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import react from "@vitejs/plugin-react";
@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react(), checker({ typescript: true })],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
 });
